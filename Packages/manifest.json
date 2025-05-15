@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.llcheesell.led_screen_shader": "https://github.com/llcheesell/LEDScreenShader.git?path=/Assets/LEDScreenShader#v0.1.1",
     "com.unity.ai.navigation": "2.0.7",
     "com.unity.burst": "1.8.21",
     "com.unity.cinemachine": "2.10.3",

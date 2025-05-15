@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
                 Vector3 shootdirection = transform.forward;
                 shootdirection.y += 0.3f;
                 rigidbody.AddForce(shootdirection * 20f, ForceMode.Impulse);
-                
+
                 ballAttachedToPlayer = null;
             }
 

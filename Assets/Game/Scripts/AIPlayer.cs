@@ -1,18 +1,19 @@
 using UnityEngine;
 using StarterAssets;
 
-[RequireComponent(typeof(Player))]
-[RequireComponent(typeof(StarterAssetsInputs))]
-public class AIPlayer : MonoBehaviour
+public class AIPlayerLinha1 : MonoBehaviour
 {
     [SerializeField] private Transform ballTransform;
-    [SerializeField] private Transform playerGoalTransform;
-    [SerializeField] private float chaseSpeed = 2.5f;
-    [SerializeField] private float shootDistance = 1.5f;
+    [SerializeField] private Transform ownGoal;
+    [SerializeField] private float moveSpeed = 2.5f;
+    [SerializeField] private float minZ = -98f;
+    [SerializeField] private float maxZ = -82.5f;
+    [SerializeField] private float xApproachDistance = 12f;
 
     private StarterAssetsInputs inputs;
     private Player playerScript;
     private Animator animator;
+    private int moveDirection = 1;
 
     private void Start()
     {
@@ -23,42 +24,47 @@ public class AIPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (ballTransform == null || playerScript == null)
-            return;
-
-        Vector3 targetPosition;
-
         if (!playerScript.BallAttachedToPlayer)
         {
-            targetPosition = ballTransform.position;
-            MoveTowards(targetPosition);
+            MoveVertically();
+            ApproachBallOnXAxis();
         }
         else
         {
-            targetPosition = playerGoalTransform.position;
+            Vector3 goalPosition = new Vector3(ownGoal.position.x, transform.position.y, transform.position.z);
+            transform.position = Vector3.MoveTowards(transform.position, goalPosition, moveSpeed * Time.deltaTime);
+            animator.SetFloat("Speed", 1f);
 
-            float distanceToGoal = Vector3.Distance(transform.position, playerGoalTransform.position);
-            MoveTowards(targetPosition);
-
-            if (distanceToGoal < shootDistance)
-            {
+            if (Vector3.Distance(transform.position, goalPosition) < 1.5f)
                 inputs.shoot = true;
-            }
         }
     }
 
-    private void MoveTowards(Vector3 target)
+    private void MoveVertically()
     {
-        Vector3 direction = target - transform.position;
-        direction.y = 0;
+        float newZ = transform.position.z + moveDirection * moveSpeed * Time.deltaTime;
 
-        if (direction != Vector3.zero)
+        if (newZ > maxZ)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            newZ = maxZ;
+            moveDirection = -1;
+        }
+        else if (newZ < minZ)
+        {
+            newZ = minZ;
+            moveDirection = 1;
         }
 
-        transform.position += direction.normalized * chaseSpeed * Time.deltaTime;
+        transform.position = new Vector3(transform.position.x, transform.position.y, newZ);
         animator.SetFloat("Speed", 1f);
+    }
+
+    private void ApproachBallOnXAxis()
+    {
+        if (Mathf.Abs(ballTransform.position.z - transform.position.z) < xApproachDistance)
+        {
+            float newX = Mathf.Lerp(transform.position.x, ballTransform.position.x, 0.02f);
+            transform.position = new Vector3(newX, transform.position.y, transform.position.z);
+        }
     }
 }
