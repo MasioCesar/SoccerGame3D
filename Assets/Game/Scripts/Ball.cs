@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
     private Vector3 previousLocation;
     private float speed;
     private Rigidbody rb;
+    private bool goalScored = false;
 
     public bool StickToPlayer { get => stickToPlayer; set => stickToPlayer = value; }
 
@@ -60,6 +61,9 @@ public class Ball : MonoBehaviour
 
     private void CheckOutOfBounds()
     {
+        if (goalScored)
+            return;
+        
         float minX = 39.55f;
         float maxX = 100.45f;
         float minZ = -100.85f;
@@ -141,6 +145,7 @@ public class Ball : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Goal"))
         {
+            goalScored = true;
             Debug.Log("GOOOOL!");
             ReturnToCenter();
         }
@@ -161,6 +166,8 @@ public class Ball : MonoBehaviour
 
     private void ReturnToCenter()
     {
+        goalScored = false;
+        
         transform.position = new Vector3(70f, 1.87f, -82.73f);
         rb.linearVelocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
