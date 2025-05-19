@@ -3433,7 +3433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4395721664088741394, guid: de0c0ec8305647f41ab49a9d4296d07f, type: 3}
       propertyPath: m_Name
-      value: Goal2
+      value: AllyGoal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14525,8 +14525,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9496117, y: 1, z: 1}
+  m_Center: {x: 0.47480583, y: 0, z: 0}
 --- !u!23 &1238821316
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15562,7 +15562,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9045002005847408768, guid: d11bb49a90986334e912a99add016481, type: 3}
       propertyPath: m_Name
-      value: Goal1
+      value: EnemyGoal
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045002005847408768, guid: d11bb49a90986334e912a99add016481, type: 3}
+      propertyPath: m_TagString
+      value: Goal
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18487,8 +18491,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.9211197, y: 1, z: 1}
+  m_Center: {x: -0.46055984, y: 0, z: 0}
 --- !u!23 &1562997113
 MeshRenderer:
   m_ObjectHideFlags: 0
